@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Divider } from 'antd';
+import { Table, Divider, Popconfirm } from 'antd';
 
 const dataSource = [
   {
@@ -37,9 +37,14 @@ const columns = [
     key: 'actions',
     render: (text: any, record: any) => (
       <div>
-        <a>删除</a>
+        <Popconfirm
+          title="确定删除此行吗？"
+          onConfirm={() => console.log('TODO: 删除')}
+        >
+          <a>删除</a>
+        </Popconfirm>
         <Divider type="vertical" />
-        <a>编辑</a>
+        <a onClick={() => console.log('TODO: 编辑')}>编辑</a>
       </div>
     ),
   },
