@@ -1,3 +1,5 @@
+import request from 'umi-request';
+
 export default {
   namespace: 'users',
 
@@ -33,6 +35,13 @@ export default {
         payload: { users: dataSource },
       });
     },
+
+    *getRemoteData({}, {}: any) {
+      const remoteData = request(
+        'https://pvp.qq.com/web201605/js/herolist.json',
+      );
+      console.log('in getRemoteData', remoteData);
+    },
   },
 
   subscriptions: {
@@ -41,6 +50,10 @@ export default {
         if (pathname.toLowerCase().includes('/')) {
           dispatch({
             type: 'getUsers',
+          });
+
+          dispatch({
+            type: 'getRemoteData',
           });
         }
       });
