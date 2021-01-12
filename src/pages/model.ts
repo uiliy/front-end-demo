@@ -24,6 +24,25 @@ export default {
       });
     },
 
+    *deleteUser({ payload }: any, { call, put }: any) {
+      const { userId } = payload;
+      const dataSource = yield request('/api/deleteUser', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify({
+          userId,
+        }),
+      });
+      console.log(dataSource);
+      yield put({
+        type: 'save',
+        payload: { users: dataSource },
+      });
+    },
+
     *getRemoteData({}, {}: any) {
       const remoteData = request(
         '/api/web201605/js/herolist.json',

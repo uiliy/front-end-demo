@@ -8,9 +8,16 @@ const Users: React.FC<{ dispatch: any; users: any }> = ({
 }) => {
   console.log(users);
 
+  const handleDeleteUser = (userId: any) => {
+    dispatch({
+      type: 'users/deleteUser',
+      payload: { userId },
+    });
+  };
+
   return (
     <div>
-      <UserTable dataSource={users} />
+      <UserTable dataSource={users} handleDeleteUser={handleDeleteUser} />
     </div>
   );
 };
