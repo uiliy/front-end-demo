@@ -14,10 +14,13 @@ const users = [
 ];
 
 export default {
-  '/api/getUsers': users,
+  '/api/getUsers': { success: true, users },
 
   'POST /api/deleteUser': (req: any, res: any) => {
     const { userId } = req.body;
-    res.send(users.filter((item: any) => item.key !== userId));
+    res.send({
+      success: true,
+      users: users.filter((item: any) => item.key !== userId),
+    });
   },
 };

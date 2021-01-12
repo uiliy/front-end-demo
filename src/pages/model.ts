@@ -1,5 +1,5 @@
-import request from 'umi-request';
 import { message } from 'antd';
+import { query } from '@/pages/services';
 
 export default {
   namespace: 'users',
@@ -16,38 +16,38 @@ export default {
 
   effects: {
     *getUsers({}, { call, put }: any) {
-      const dataSource = yield request('/api/getUsers');
-
-      yield put({
-        type: 'save',
-        payload: { users: dataSource },
+      const res = yield call(query, {
+        api: '/api/getUsers',
+        requestType: 'GET',
       });
+
+      if (res && res.users) {
+        yield put({
+          type: 'save',
+          payload: { users: res.users },
+        });
+      }
     },
 
     *deleteUser({ payload }: any, { call, put }: any) {
       const { userId } = payload;
-      const dataSource = yield request('/api/deleteUser', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify({
+      const res = yield call(query, {
+        api: '/api/deleteUser',
+        requestType: 'POST',
+        body: {
           userId,
-        }),
+        },
       });
-      console.log(dataSource);
-      yield put({
-        type: 'save',
-        payload: { users: dataSource },
-      });
-    },
 
-    *getRemoteData({}, {}: any) {
-      const remoteData = request(
-        '/api/web201605/js/herolist.json',
-      ).catch((errorInfo) => message.error(errorInfo.toString()));
-      console.log('in getRemoteData', remoteData);
+      if (res && res.success) {
+        yield put({
+          type: 'save',
+          payload: { users: res.users },
+        });
+        message.success('删除成功');
+      } else {
+        message.success('删除失败');
+      }
     },
   },
 
@@ -57,10 +57,6 @@ export default {
         if (pathname.toLowerCase().includes('/')) {
           dispatch({
             type: 'getUsers',
-          });
-
-          dispatch({
-            type: 'getRemoteData',
           });
         }
       });

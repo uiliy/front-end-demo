@@ -6,8 +6,6 @@ const Users: React.FC<{ dispatch: any; users: any }> = ({
   dispatch,
   users,
 }) => {
-  console.log(users);
-
   const handleDeleteUser = (userId: any) => {
     dispatch({
       type: 'users/deleteUser',
