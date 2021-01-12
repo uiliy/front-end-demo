@@ -39,7 +39,7 @@ export default {
 
     *getRemoteData({}, {}: any) {
       const remoteData = request(
-        'https://pvp.qq.com/web201605/js/herolist.json',
+        '/api/web201605/js/herolist.json',
       ).catch((errorInfo) => message.error(errorInfo.toString()));
       console.log('in getRemoteData', remoteData);
     },
