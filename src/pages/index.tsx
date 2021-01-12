@@ -10,7 +10,7 @@ const Users: React.FC<{ dispatch: any; users: any }> = ({
 
   return (
     <div>
-      <UserTable />
+      <UserTable dataSource={users} />
     </div>
   );
 };

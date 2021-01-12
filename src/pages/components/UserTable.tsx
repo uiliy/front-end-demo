@@ -1,21 +1,6 @@
 import React from 'react';
 import { Table, Divider, Popconfirm } from 'antd';
 
-const dataSource = [
-  {
-    key: '1',
-    name: '胡彦斌',
-    age: 32,
-    address: '西湖区湖底公园1号',
-  },
-  {
-    key: '2',
-    name: '胡彦祖',
-    age: 42,
-    address: '西湖区湖底公园1号',
-  },
-];
-
 const columns = [
   {
     title: '姓名',
@@ -50,7 +35,7 @@ const columns = [
   },
 ];
 
-const UserTable: React.FC<{}> = ({}) => {
+const UserTable: React.FC<{ dataSource: any }> = ({ dataSource }) => {
   return <Table dataSource={dataSource} columns={columns} />;
 };
 
