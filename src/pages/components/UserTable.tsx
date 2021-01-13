@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Divider, Popconfirm } from 'antd';
 
-const UserTable: React.FC<{ dataSource: any; handleDeleteUser: any }> = ({
-  dataSource,
-  handleDeleteUser,
-}) => {
+const UserTable: React.FC<{
+  dataSource: any;
+  handleDeleteUser: any;
+  searchValue: any;
+}> = ({ dataSource, handleDeleteUser, searchValue }) => {
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
+
+  useEffect(() => {
+    const filteredDataSource = dataSource.filter((item: any) => {
+      searchValue = searchValue.toLowerCase();
+
+      return (
+        item.name.toLowerCase().includes(searchValue) ||
+        item.age.toString().includes(searchValue) ||
+        item.address.toLowerCase().includes(searchValue)
+      );
+    });
+    setFilteredDataSource(filteredDataSource);
+  }, [dataSource, searchValue]);
+
   const columns = [
     {
       title: '姓名',
@@ -39,7 +55,7 @@ const UserTable: React.FC<{ dataSource: any; handleDeleteUser: any }> = ({
     },
   ];
 
-  return <Table dataSource={dataSource} columns={columns} />;
+  return <Table dataSource={filteredDataSource} columns={columns} />;
 };
 
 export default UserTable;

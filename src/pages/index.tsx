@@ -17,7 +17,6 @@ const Users: React.FC<{ dispatch: any; users: any }> = ({
   };
 
   const handleChange = (e: any) => {
-    console.log(e.target.value);
     setSearchValue(e.target.value);
   };
 
@@ -36,7 +35,11 @@ const Users: React.FC<{ dispatch: any; users: any }> = ({
       </Row>
       <Row>
         <Col span={24}>
-          <UserTable dataSource={users} handleDeleteUser={handleDeleteUser} />
+          <UserTable
+            dataSource={users}
+            handleDeleteUser={handleDeleteUser}
+            searchValue={searchValue}
+          />
         </Col>
       </Row>
     </div>
