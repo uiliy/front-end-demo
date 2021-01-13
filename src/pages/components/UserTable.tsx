@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Divider, Popconfirm } from 'antd';
+import Highlighter from 'react-highlight-words';
+import styles from '@/pages/index.less';
 
 const UserTable: React.FC<{
   dataSource: any;
@@ -21,21 +23,33 @@ const UserTable: React.FC<{
     setFilteredDataSource(filteredDataSource);
   }, [dataSource, searchValue]);
 
+  const render = (text: any) => (
+    <Highlighter
+      highlightClassName={styles.highlighter}
+      searchWords={[searchValue]}
+      autoEscape={true}
+      textToHighlight={text.toString() || ''}
+    />
+  );
+
   const columns = [
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
+      render: render,
     },
     {
       title: '年龄',
       dataIndex: 'age',
       key: 'age',
+      render: render,
     },
     {
       title: '住址',
       dataIndex: 'address',
       key: 'address',
+      render: render,
     },
     {
       title: '操作',
